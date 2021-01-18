@@ -25,5 +25,14 @@ public class HomeController {
 		model.addAttribute("newUser", new User());
 		return "index.jsp";
 	}
-
+	@PostMapping("/register")
+	public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
+		uServ.register(newUser, result);
+		if(result.hasErrors()) {
+			return "index.jsp";
+		} else {
+			session.setAttribute("user_id", newUser.getId());
+			return "redirect:/";
+		}
+	}
 }
