@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.maryam.basicauthentication.models.LoginUser;
 import com.maryam.basicauthentication.models.User;
 import com.maryam.basicauthentication.repositories.UserRepository;
 
@@ -15,6 +16,11 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	public User findOne(Long id) {
+		Optional<User> potentialUser = userRepo.findById(id);
+		return potentialUser.isPresent() ? potentialUser.get() : null;
+	}
 	
 	public User findOne(String email) {
 		Optional<User> potentialUser = userRepo.findByEmail(email);
@@ -36,6 +42,22 @@ public class UserService {
 			return userRepo.save(newUser);
 		}
 	}
-	
-	
+	public User login(LoginUser newLogin, BindingResult result) {
+		if(result.hasErrors()) {
+			return null;
+		}
+		User user = findOne(newLogin.getEmail());
+		if(user == null) {
+			result.rejectValue("email", "Unique", "Sorry. This email does not exist in our database");
+			return null;
+		}
+		if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+			result.rejectValue("password", "Matches", "Your username/password combination is incorrect");
+		}
+		if(result.hasErrors()) {
+			return null;
+		} else {
+			return user;
+		}
+	}
 }

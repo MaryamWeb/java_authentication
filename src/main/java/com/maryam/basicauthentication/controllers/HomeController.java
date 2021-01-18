@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.maryam.basicauthentication.models.LoginUser;
 import com.maryam.basicauthentication.models.User;
 import com.maryam.basicauthentication.services.UserService;
 
@@ -23,6 +24,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("newUser", new User());
+		model.addAttribute("newLogin", new LoginUser());
 		return "index.jsp";
 	}
 	@PostMapping("/register")
@@ -31,8 +33,20 @@ public class HomeController {
 		if(result.hasErrors()) {
 			return "index.jsp";
 		} else {
-			session.setAttribute("user_id", newUser.getId());
+			session.setAttribute("user_id", newUser.getId());  //Add user id in session 
 			return "redirect:/";
 		}
 	}
+	@PostMapping("/login")
+	public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, BindingResult result, Model model, HttpSession session) {
+		User u = uServ.login(newLogin, result);
+		if(result.hasErrors()) {
+			model.addAttribute("newUser", new User());
+			return "index.jsp";
+		}
+		session.setAttribute("user_id", u.getId());
+		return "redirect:/";
+		
+	}
+	
 }

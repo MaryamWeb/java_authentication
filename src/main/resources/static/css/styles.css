@@ -1,7 +1,10 @@
 body {
 	background-color:#f4eeed;
+	font-family: 'Verdana';
 }
-
+.container{
+	margin-top:100px;
+}
 .main-color{
 	color:#944e6c;
 }
