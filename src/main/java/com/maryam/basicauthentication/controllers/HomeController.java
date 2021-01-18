@@ -22,9 +22,11 @@ public class HomeController {
 	private UserService uServ;
 	
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 		model.addAttribute("newUser", new User());
 		model.addAttribute("newLogin", new LoginUser());
+		User loggedInUser = uServ.findOne( (Long) session.getAttribute("user_id") );
+		model.addAttribute("user", loggedInUser);
 		return "index.jsp";
 	}
 	@PostMapping("/register")
@@ -48,5 +50,9 @@ public class HomeController {
 		return "redirect:/";
 		
 	}
-	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user_id");
+		return "redirect:/";
+	}
 }

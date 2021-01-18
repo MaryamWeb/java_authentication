@@ -11,10 +11,24 @@
 <link rel="stylesheet"
 	href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.15.2/css/all.css">
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg main-color px-5">
+	  <span class="navbar-brand mb-0 h1"><i class="fas fa-home"></i></span>
+	  <c:if test="${not empty user}">
+		   <ul class="navbar-nav  ml-auto">
+			  <li class="nav-item">
+			  	<a class="nav-link main-color" href="#">Logged in as <span>${user.username}</span></a>
+			  </li>
+		      <li class="nav-item">
+		        <a class="nav-link main-color" href="/logout">Logout</a>
+		      </li>
+	      </ul>
+      </c:if>
+	</nav>
 	<div class="container">
 		<div class="row d-flex justify-content-between">
 			<div class="col-6">

@@ -1,13 +1,12 @@
 body {
-	background-color:#f4eeed;
-	font-family: 'Verdana';
+	background-color:#f4eeed; 
 }
 .container{
-	margin-top:100px;
+	margin-top:80px;
 }
 .main-color{
 	color:#944e6c;
 }
 .main-bg-color{
 	background-color:#944e6c;
-}
+} 
