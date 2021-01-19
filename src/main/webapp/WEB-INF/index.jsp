@@ -33,8 +33,8 @@
 		<div class="row d-flex justify-content-between">
 			<div class="col-6">
 				<form:form action="/register" method="post" modelAttribute="newUser">
+					<h3 class="main-color text-center">Registration</h3>
 					<div class="form-group">
-						<h3 class="main-color text-center">Registration</h3>
 						<label class="col-form-label">Username:</label>
 						<form:input path="username" class="form-control" />
 						<form:errors path="username" class="text-danger" />
@@ -60,8 +60,8 @@
 			</div>
 			<div class="col-4">
 				<form:form action="/login" method="post" modelAttribute="newLogin">
+					<h3 class="main-color text-center">Login</h3>
 					<div class="form-group">
-						<h3 class="main-color text-center">Login</h3>
 						<label class="col-form-label">Email:</label>
 						<form:input path="email" class="form-control" />
 						<form:errors path="email" class="text-danger" />

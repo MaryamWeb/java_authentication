@@ -33,6 +33,7 @@ public class HomeController {
 	public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) {
 		uServ.register(newUser, result);
 		if(result.hasErrors()) {
+			model.addAttribute("newLogin", new LoginUser());
 			return "index.jsp";
 		} else {
 			session.setAttribute("user_id", newUser.getId());  //Add user id in session 
